@@ -35,7 +35,7 @@ Follow this [documentation](https(https://docs.microsoft.com/en-us/azure/automat
 
 By default, Run as Account Service Principal will get `Contributor` permission but we only need `Reader` permission.
 
-These Powershell commands will remove `Contributor` permissionand set `Reader` permission:
+These Powershell commands will remove `Contributor` and set `Reader` permissions:
 ```console
 Remove-AzRoleAssignment -PrincipalId "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx" -RoleDefinition "Contributor"
 
