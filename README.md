@@ -3,7 +3,8 @@
 Azure Automation runbook for reservation alerts.
 
 This runbook will raise an alert to a dedicated Teams channel if a reservation usage is below a specified threshold.
-All reservations in current tenant will be checked. 
+
+All reservations in current directory will be checked. 
 
 ## Prerequisites
 ### Configure Teams Channel
