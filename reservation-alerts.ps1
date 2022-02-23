@@ -26,19 +26,19 @@ catch {
     }
 }
 
-# Check SPN permissions to view Reservations at tenant level (aka Reservations Administratior)
+# Check SPN permissions to view Reservations at tenant level (aka Reservations Reader)
 #-------------------------------------------------------------------------------------------------------------------#
-# Pre-requisites get Reservation Administrator elevated priviliege for Automation Account Managed Identity
+# Pre-requisites get Reservations Reader elevated priviliege for Automation Account Managed Identity
 # To be run with elevated privileges See https://docs.microsoft.com/en-us/azure/role-based-access-control/elevate-access-global-admin
 #-------------------------------------------------------------------------------------------------------------------#
-# New-AzRoleAssignment -Scope "/providers/Microsoft.Capacity" -PrincipalId xxxxxxxxxxxxxxxxxxxxxxxxxxxxx -RoleDefinitionName "Reservations Administrator"
+# New-AzRoleAssignment -Scope "/providers/Microsoft.Capacity" -PrincipalId "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx" -RoleDefinitionName "Reservations Reader"
 $Context = Get-AzContext
 $Spn = Get-AzADServicePrincipal -ApplicationId $Context.Account.Id
 $RoleAssignment = Get-AzRoleAssignment -Scope "/providers/Microsoft.Capacity" -PrincipalId $Spn.Id
-if($RoleAssignment.RoleDefinitionName -ne "Reservations Administrator"){
-    Write-Error("Service Principal is not allowed to view/manage reservations")
+if($RoleAssignment.RoleDefinitionName -ne "Reservations Reader"){
+    Write-Error("Service Principal is not allowed to view reservations")
     Write-Error("Use this CmdLine to Grant Access :")
-    Write-Error("New-AzRoleAssignment -Scope ""/providers/Microsoft.Capacity"" -PrincipalId SPN OBJECT ID -RoleDefinitionName ""Reservations Administrator""")
+    Write-Error("New-AzRoleAssignment -Scope ""/providers/Microsoft.Capacity"" -PrincipalId SPN OBJECT ID -RoleDefinitionName ""Reservations Reader""")
 }
 
 # Get SPN Bearer Token for API calls
