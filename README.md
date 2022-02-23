@@ -27,7 +27,7 @@ New-AzAutomationAccount -Name 'myAutomationAccount' -Location 'North Europe' -Re
 ### Create "Run as Account"
 Run As accounts in Azure Automation provide authentication for managing resources on the Azure Resource Manager using Automation runbooks.
 
-Follow this [documentation](https(https://docs.microsoft.com/en-us/azure/automatiocreate-run-as-account#create-account-in-azu)re-portal) to create an Automation Account using Azure Portal (easiest way) 
+Follow [Azure Automation Account documentation](https(https://docs.microsoft.com/en-us/azure/automatiocreate-run-as-account#create-account-in-azu)re-portal) to create an Automation Account using Azure Portal (easiest way) 
 
 
 ### Set "Run as Account" permissions
@@ -48,10 +48,11 @@ New-AzRoleAssignment -PrincipalId "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx" -RoleDefini
 
  - Set reservations permission
 
-To list all reservation on tenant, we'll use new Microsoft.Capacity scope read only permissions see [documentation](https://link)   
-Pre-requisites get Reservations Reader elevated priviliege for Automation Account Managed Identity
-To be run with elevated privileges See [Azure AD documentation](https://docs.microsoft.com/en-us/azure/role-based-access-control/elevate-access-global-admin)
+To list all reservation, we'll use new `Reservations Reader` permission, it gives read-only access to reservations in current Azure Active Directory tenant (directory) see [View/Manage Reservations documentation](https://docs.microsoft.com/en-us/azure/cost-management-billing/reservations/view-reservations#assign-a-reservation-reader-role-at-the-tenant-level)  
 
+To set this permission, you need to be connected as a Global Admin with elevated priviliege See [Azure AD documentation](https://docs.microsoft.com/en-us/azure/role-based-access-control/elevate-access-global-admin)
+
+Theis Powershell commands will set `Reservations Reader` permission:
 ```console
 New-AzRoleAssignment -Scope "/providers/Microsoft.Capacity" -PrincipalId "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx" -RoleDefinitionName "Reservations Reader"
 ```
