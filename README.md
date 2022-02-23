@@ -8,7 +8,7 @@ All reservations in current tenant will be checked.
 ### Configure Teams Channel
 Reservation alerts will be sent to a Teams channel using Teams APIs.
 
-You need to enable this feature on Channel using Incoming Webook connector see [Teams connectors [documentation](https(https://docs.microsoft.com/en-us/microsoteams/platform/webhooks-and-connectors/how-to/)add-incoming-webhook#create-an-incoming-webhook-1)
+You need to enable this feature on Channel using Incoming Webook connector see [Teams connectors documentation](https(https://docs.microsoft.com/en-us/microsoteams/platform/webhooks-and-connectors/how-to/)add-incoming-webhook#create-an-incoming-webhook-1)
 
 Copy generated URL to provide it as a parameter to Azure Automation runbook (will be referenced as `TeamsChannelUrl`)  
 
