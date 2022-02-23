@@ -1,2 +1,2 @@
 # reservation-alerts
-Azure automation module for reservation alerts 
+Azure Automation module for reservation alerts 
