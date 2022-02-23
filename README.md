@@ -37,9 +37,9 @@ By default, Run as Account Service Principal will get `Contributor` permission b
 
 These Powershell commands will remove `Contributor` permissionand set `Reader` permission:
 ```console
-Remove-AzRoleAssignment -PrincipalId xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx -RoleDefinition "Contributor"
+Remove-AzRoleAssignment -PrincipalId "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx" -RoleDefinition "Contributor"
 
-New-AzRoleAssignment -PrincipalId 915d6505-59ca-4060-b966-3d165376e334 -RoleDefinitionName "Reader"
+New-AzRoleAssignment -PrincipalId "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx" -RoleDefinitionName "Reader"
 ```
 
 *You can easily find Service Principal ID in Run as Account blade on Azure Portal*
@@ -52,12 +52,9 @@ To list all reservation on tenant, we'll use new Microsoft.Capacity scope read o
 Pre-requisites get Reservations Reader elevated priviliege for Automation Account Managed Identity
 To be run with elevated privileges See [Azure AD documentation](https://docs.microsoft.com/en-us/azure/role-based-access-control/elevate-access-global-admin)
 
-
-New-AzRoleAssignment -Scope "/providers/Microsoft.Capacity" -PrincipalId "915d6505-59ca-4060-b966-3d165376e334" -RoleDefinitionName "Reservations Reader"
-
-
-
-
+```console
+New-AzRoleAssignment -Scope "/providers/Microsoft.Capacity" -PrincipalId "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx" -RoleDefinitionName "Reservations Reader"
+```
 
 ### Configure Automation Account 
 
