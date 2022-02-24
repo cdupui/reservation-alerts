@@ -39,7 +39,7 @@ By default, Run as Account Service Principal will get `Contributor` permission b
 
 These Powershell commands will remove `Contributor` and set `Reader` permissions on Azure Automation Service Principal (aka Run As Account):
 ```console
-Remove-AzRoleAssignment -PrincipalId "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx" -RoleDefinition "Contributor"
+Remove-AzRoleAssignment -PrincipalId "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx" -RoleDefinitionName "Contributor"
 
 New-AzRoleAssignment -PrincipalId "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx" -RoleDefinitionName "Reader"
 ```
