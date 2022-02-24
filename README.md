@@ -54,7 +54,7 @@ To list all reservations, we use `Reservations Reader` permission, it gives read
 
 To set this permission, you must  be authentucated as a **Global Admin with elevated privilieges** See [Azure AD documentation](https://docs.microsoft.com/en-us/azure/role-based-access-control/elevate-access-global-admin)
 
-This Powershell commands will set `Reservations Reader` permission on Azure Automation Service Principal (aka Run As Account):
+This Powershell command will set `Reservations Reader` permission on Azure Automation Service Principal (aka Run As Account):
 ```console
 New-AzRoleAssignment -Scope "/providers/Microsoft.Capacity" -PrincipalId "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx" -RoleDefinitionName "Reservations Reader"
 ```
