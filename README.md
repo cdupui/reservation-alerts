@@ -80,6 +80,7 @@ wget https://raw.githubusercontent.com/cdupui/reservation-alerts/main/reservatio
 Go to the directory where you downloaded `reservation-alerts.ps1` and execute Powershell command to create and deploy Azure Automation Powershell runbook: 
 ```console
 $importParams = @{
+    Name = "ReservationAlerts"
     Path = "reservation-alerts.ps1"
     ResourceGroupName = "RG-CDU"
     AutomationAccountName = "myAutomationAccount"
