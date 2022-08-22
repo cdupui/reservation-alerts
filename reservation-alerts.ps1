@@ -45,26 +45,42 @@ if($RoleAssignment.RoleDefinitionName -ne "Reservations Reader"){
 $AccessToken = Get-AzAccessToken -ResourceUrl "https://management.azure.com" -Tenant $servicePrincipalConnection.TenantID
 $token = $AccessToken.Token
 
-# Get reservations for tenant
-$Reservations = (Invoke-WebRequest -UseBasicParsing -Uri 'https://management.azure.com/providers/Microsoft.Capacity/reservations?api-version=2020-06-01' -Method GET -ContentType "application/json" -Headers @{ Authorization ="Bearer $token"}).Content
-
-#Convert to JSON
-$ReservationsTable = ConvertFrom-Json -InputObject $Reservations
-
 # Create empty array to store Alerts 
 $Alerts = New-Object -TypeName 'System.Collections.ArrayList';
 
-# Loop on reservations to check usage percentage against configured threshold
-foreach ($Reservation in $ReservationsTable.value)
-{
-    #Filter when threshold > x%
-    $yesterdayUsage = $Reservation.properties.utilization.aggregates[0].value
-    $provisioningState = $Reservation.properties.provisioningState
-    
-    if(($yesterdayUsage -lt $UsageThreshold) -and ($provisioningState -eq "Succeeded"))
+$NextLink = 'https://management.azure.com/providers/Microsoft.Capacity/reservations?api-version=2020-06-01'
+
+while ($Null -ne $NextLink) {
+
+    # Logs
+    $NextLink
+
+    # Get reservations for tenant
+    $Reservations = (Invoke-WebRequest -UseBasicParsing -Uri $NextLink -Method GET -ContentType "application/json" -Headers @{ Authorization ="Bearer $token"}).Content
+
+    #Convert to JSON
+    $ReservationsTable = ConvertFrom-Json -InputObject $Reservations
+
+    # Loop on reservations to check usage percentage against configured threshold
+    foreach ($Reservation in $ReservationsTable.value)
     {
-        $Alerts.Add("<p>Alert on Reservation <b>" + $Reservation.properties.displayName + "</b> (" + $Reservation.name + ") => Yesterday Usage was " + $yesterdayUsage + "%</p>")
+        #Filter when threshold > x%
+        $yesterdayUsage = $Reservation.properties.utilization.aggregates[0].value
+        $provisioningState = $Reservation.properties.provisioningState
+        
+        # Filter specific reservation tyoe if needed
+        # $reservationType = $Reservation.properties.reservedResourceType
+        # -and ($reservationType -ne 'Databricks')
+
+        if(($yesterdayUsage -lt $UsageThreshold) -and ($provisioningState -eq "Succeeded"))
+        {
+            $Alerts.Add("<p>Alert on Reservation <b>" + $Reservation.properties.displayName + "</b> (" + $Reservation.name + ") => Yesterday Usage was " + $yesterdayUsage + "%</p>")
+            $reservationType
+        }
     }
+
+    # Get next page if exists
+    $NextLink = $ReservationsTable.nextLink
 }
 
 Write-Output ("Alerts = "+$Alerts)

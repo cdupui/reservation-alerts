@@ -102,3 +102,9 @@ If all tests are fine, you have to publish your runbook to finalize deployment s
 
 ### Schedule execution
 Last optional (but recommended) step is to schedule this runbook to get daily alerts if your reservations are not used as expected see [Schedule runbook documentation](https://docs.microsoft.com/en-us/azure/automation/manage-runbooks#schedule-a-runbook-in-the-azure-portal) 
+
+## Releases
+### v0.2
+Handle API pagination (when reservation count > 50)
+### v0.1
+Initial release
