@@ -74,12 +74,13 @@ New-AzAutomationVariable -AutomationAccountName "myAutomationAccount" -Name "Usa
 ### Create Powershell runbook
 Download Powershell script:
 ```console
-wget https://github.com/cdupui/reservation-alerts/blob/main/reservation-alerts.ps1   
+wget https://raw.githubusercontent.com/cdupui/reservation-alerts/main/reservation-alerts.ps1   
 ```
 
 Go to the directory where you downloaded `reservation-alerts.ps1` and execute Powershell command to create and deploy Azure Automation Powershell runbook: 
 ```console
 $importParams = @{
+    Name = "ReservationAlerts"
     Path = "reservation-alerts.ps1"
     ResourceGroupName = "RG-CDU"
     AutomationAccountName = "myAutomationAccount"
